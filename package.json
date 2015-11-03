@@ -1,0 +1,24 @@
+{
+  "name": "kumdo-server",
+  "version": "0.0.1",
+  "description": "Android Application Server",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "connect-multiparty": "^2.0.0",
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "mongoose": "^4.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "android",
+    "nodejs",
+    "express"
+  ],
+  "author": "Jang Young-bin",
+  "license": "ISC"
+}
