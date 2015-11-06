@@ -73,9 +73,9 @@ app.get('/best', function(req, res) {
 	
 });
 
-app.get('/mylist', function(req, res) {
-	console.log("I received from GET /mylist a request : ", req.query.email);
-	writings.find({email : req.query.email}).sort({date : -1}).exec(function (err, docs) {
+app.get('/mylist/:email', function(req, res) {
+	console.log("I received from GET /mylist a request : ", req.params.email);
+	writings.find({ email : req.params.email }).sort({date : -1 }).exec(function (err, docs) {
 		console.log(docs);
 		res.json(docs);
 	});
