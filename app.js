@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var multipart = require('connect-multiparty');
 var mongoose = require('mongoose');
 var os = require('os');
+var sizeOf = require('image-size');
 
 var networkInterfaces = os.networkInterfaces();
 
@@ -43,6 +44,7 @@ var writingsSchema = mongoose.Schema({
 	sentence: String,
 	words: String,
 	imageUrl: String,
+	imageSize: Array,
 	category: { type: Number, min: 0, max: 10 },
 	date: String
 }, { collection: 'writings' });
@@ -90,6 +92,7 @@ app.get('/image/:file', function (req, res){
 });
 
 app.post('/upload', function (req, res) {
+	console.log('this : ', req.files);
 	console.log(req.body, req.files.image);
 
 	var imageName = req.body.date + "_" + req.files.image.name;
@@ -105,6 +108,11 @@ app.post('/upload', function (req, res) {
 
 		  /// write file to uploads/fullsize folder
 		  fs.writeFile(imagePath, data, function (err, written, string) {
+		  	var dimensions = sizeOf(imagePath);
+		  	console.log(dimensions.width, dimensions.height);
+		  	var imageWidth = dimensions.width;
+		  	var imageHeight = dimensions.height;
+
 		  	console.log(err);
 		  	if (err == null) {
 		  		var writing = {
@@ -114,6 +122,7 @@ app.post('/upload', function (req, res) {
 					words : req.body.words,
 					category : req.body.category,
 					imageUrl : imageUrl,
+					imageSize : [imageWidth, imageHeight],
 					date : req.body.date
 				}
 
